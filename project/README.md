@@ -124,14 +124,6 @@ The first request auto-creates the schema, triggers and seed data in
    ```
 5. Run `python run.py` – the app will now talk to Supabase.
 
-### Deploying the app to Render
-
-1. Push the repo to GitHub.
-2. On <https://render.com> → *New Web Service* → connect the repo.
-3. Build command: `pip install -r requirements.txt`
-4. Start command: `python run.py`
-5. Add env vars: `FLASK_SECRET_KEY`, `DATABASE_URL` (from Supabase).
-
 ---
 
 ## 7. Screens (7)
@@ -170,7 +162,3 @@ See `database/04_plpgsql.sql`:
    when both scores are filled in
 
 ---
-
-## 10. License
-
-Academic use – submitted as a database course project.
