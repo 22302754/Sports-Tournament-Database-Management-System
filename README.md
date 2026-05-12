@@ -52,7 +52,7 @@ records every insert / update / delete on `matches`.
 
 ### ER diagram
 
-![ERD Diagram](ERD.png)
+![ERD Diagram](project/ERD.png)
 
 ---
 
