@@ -52,18 +52,7 @@ records every insert / update / delete on `matches`.
 
 ### ER diagram
 
-```
-roles ──< users ──┬──< teams ──< players
-                  │      │
-                  │      └──< tournament_registrations >── tournaments
-                  ├──< tournaments
-                  └──< matches (ref)
-sports ──< teams, tournaments
-venues ──< matches
-```
-
-See `database/01_ddl.sql` for the full CREATE TABLE statements with PRIMARY KEYs,
-FOREIGN KEYs, UNIQUE / CHECK / DEFAULT constraints.
+![ERD Diagram](ERD.png)
 
 ---
 
