@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Tournaments{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+  <h3>Tournaments</h3>
+  {% if current_user.role in ('admin','organizer') %}
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#tournamentForm"
+       aria-expanded="{{ 'true' if editing else 'false' }}">+ New / Edit Tournament</a>
+  {% endif %}
+</div>
+
+{% if current_user.role in ('admin','organizer') %}
+<div class="collapse {% if editing %}show{% endif %} mb-3" id="tournamentForm">
+  <form method="post" class="card p-4"
+        action="{% if tournament %}{{ url_for('tournaments.edit', tid=tournament.tournament_id) }}{% else %}{{ url_for('tournaments.create') }}{% endif %}">
+    <h5>{% if tournament %}Edit Tournament #{{ tournament.tournament_id }}{% else %}New Tournament{% endif %}</h5>
+    <div class="row g-3 mt-1">
+      <div class="col-md-8">
+        <label class="form-label">Name</label>
+        <input name="name" class="form-control" required
+               value="{{ tournament.name if tournament else '' }}">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Season</label>
+        <input name="season" class="form-control" required
+               value="{{ tournament.season if tournament else '2025-26' }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Sport</label>
+        <select name="sport_id" class="form-select" required>
+          {% for s in sports %}
+            <option value="{{ s.sport_id }}"
+              {% if tournament and tournament.sport_id == s.sport_id %}selected{% endif %}>{{ s.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Organizer</label>
+        <select name="organizer_user_id" class="form-select">
+          <option value="">-- none --</option>
+          {% for o in organizers %}
+            <option value="{{ o.user_id }}"
+              {% if tournament and tournament.organizer_user_id == o.user_id %}selected{% endif %}>{{ o.full_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Start Date</label>
+        <input type="date" name="start_date" class="form-control" required
+               value="{{ tournament.start_date if tournament else '' }}">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">End Date</label>
+        <input type="date" name="end_date" class="form-control" required
+               value="{{ tournament.end_date if tournament else '' }}">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Status</label>
+        <select name="status" class="form-select">
+          {% for st in ['Upcoming','Ongoing','Completed','Cancelled'] %}
+            <option {% if tournament and tournament.status == st %}selected{% endif %}>{{ st }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Prize Pool</label>
+        <input type="number" step="0.01" name="prize_pool" class="form-control"
+               value="{{ tournament.prize_pool if tournament else 0 }}">
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Location</label>
+        <input name="location" class="form-control"
+               value="{{ tournament.location if tournament else '' }}">
+      </div>
+    </div>
+    <div class="mt-3">
+      <button class="btn btn-primary">Save</button>
+      {% if tournament %}
+        <a class="btn btn-link" href="{{ url_for('tournaments.list_view') }}">Cancel</a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+{% endif %}
+
+<div class="card">
+  <table class="table mb-0">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th><th>Sport</th><th>Season</th><th>Status</th>
+        <th>Dates</th><th>Prize</th><th>Organizer</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in tournaments %}
+        <tr>
+          <td><strong>{{ t.name }}</strong></td>
+          <td>{{ t.sport }}</td>
+          <td>{{ t.season }}</td>
+          <td><span class="badge bg-secondary">{{ t.status }}</span></td>
+          <td>{{ t.start_date }} → {{ t.end_date }}</td>
+          <td>{{ '%.2f'|format(t.prize_pool|float) }}</td>
+          <td>{{ t.organizer }}</td>
+          <td class="text-end">
+            {% if current_user.role in ('admin','organizer') %}
+              <a class="btn btn-sm btn-outline-secondary"
+                 href="{{ url_for('tournaments.edit', tid=t.tournament_id) }}">Edit</a>
+            {% endif %}
+            {% if current_user.role == 'admin' %}
+              <form class="d-inline" method="post"
+                    action="{{ url_for('tournaments.delete', tid=t.tournament_id) }}"
+                    onsubmit="return confirm('Delete this tournament?');">
+                <button class="btn btn-sm btn-outline-danger">Delete</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="8" class="text-center text-muted py-3">No tournaments yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

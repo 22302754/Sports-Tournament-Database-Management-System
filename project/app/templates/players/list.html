@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Players{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+  <h3>Players</h3>
+  {% if current_user.role in ('admin','organizer','coach') %}
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#playerForm"
+       aria-expanded="{{ 'true' if editing else 'false' }}">+ New / Edit Player</a>
+  {% endif %}
+</div>
+
+{% if current_user.role in ('admin','organizer','coach') %}
+<div class="collapse {% if editing %}show{% endif %} mb-3" id="playerForm">
+  <form method="post" class="card p-4"
+        action="{% if player %}{{ url_for('players.edit', pid=player.player_id) }}{% else %}{{ url_for('players.create') }}{% endif %}">
+    <h5>{% if player %}Edit Player #{{ player.player_id }}{% else %}New Player{% endif %}</h5>
+    <div class="row g-3 mt-1">
+      <div class="col-md-8">
+        <label class="form-label">Full name</label>
+        <input name="full_name" class="form-control" required
+               value="{{ player.full_name if player else '' }}">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Jersey #</label>
+        <input name="jersey_number" type="number" class="form-control"
+               value="{{ player.jersey_number if player else '' }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Team</label>
+        <select name="team_id" class="form-select" required>
+          {% for t in form_teams %}
+            <option value="{{ t.team_id }}"
+              {% if player and player.team_id == t.team_id %}selected{% endif %}>{{ t.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Position</label>
+        <input name="position" class="form-control"
+               value="{{ player.position if player else '' }}">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" name="date_of_birth" class="form-control" required
+               value="{{ player.date_of_birth if player else '' }}">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Nationality</label>
+        <input name="nationality" class="form-control"
+               value="{{ player.nationality if player else '' }}">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Height (cm)</label>
+        <input name="height_cm" type="number" class="form-control"
+               value="{{ player.height_cm if player else '' }}">
+      </div>
+    </div>
+    <div class="mt-3">
+      <button class="btn btn-primary">Save</button>
+      {% if player %}
+        <a class="btn btn-link" href="{{ url_for('players.list_view') }}">Cancel</a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+{% endif %}
+
+<form class="mb-3" method="get">
+  <div class="input-group" style="max-width:360px">
+    <select name="team_id" class="form-select" onchange="this.form.submit()">
+      <option value="">All teams</option>
+      {% for t in teams %}
+        <option value="{{ t.team_id }}" {% if team_filter|string == t.team_id|string %}selected{% endif %}>
+          {{ t.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+</form>
+
+<div class="card">
+  <table class="table mb-0">
+    <thead class="table-light">
+      <tr>
+        <th>#</th><th>Name</th><th>Team</th><th>Position</th>
+        <th>DOB</th><th>Nationality</th><th>Height</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in players %}
+        <tr>
+          <td>{{ p.jersey_number or '-' }}</td>
+          <td><strong>{{ p.full_name }}</strong></td>
+          <td>{{ p.team }}</td>
+          <td>{{ p.position or '-' }}</td>
+          <td>{{ p.date_of_birth }}</td>
+          <td>{{ p.nationality or '-' }}</td>
+          <td>{{ (p.height_cm|string + ' cm') if p.height_cm else '-' }}</td>
+          <td class="text-end">
+            {% if current_user.role in ('admin','organizer','coach') %}
+              <a class="btn btn-sm btn-outline-secondary"
+                 href="{{ url_for('players.edit', pid=p.player_id) }}">Edit</a>
+              <form class="d-inline" method="post"
+                    action="{{ url_for('players.delete', pid=p.player_id) }}"
+                    onsubmit="return confirm('Remove this player?');">
+                <button class="btn btn-sm btn-outline-danger">Remove</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="8" class="text-center text-muted py-3">No players.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

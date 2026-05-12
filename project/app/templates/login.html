@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Login – Tournament MS{% endblock %}
+{% block anonymous %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h3 class="mb-4 text-center">🏆 Sports Tournament Management System</h3>
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input name="username" class="form-control" required autofocus>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input name="password" type="password" class="form-control" required>
+          </div>
+          <button class="btn btn-primary w-100">Log in</button>
+        </form>
+        <hr>
+        <small class="text-muted">
+          Demo accounts (password <code>pass123</code>):<br>
+          <strong>admin</strong>, <strong>org1</strong>, <strong>coach_a</strong>,
+          <strong>coach_b</strong>, <strong>coach_c</strong>,
+          <strong>ref1</strong>, <strong>ref2</strong>, <strong>player1</strong>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

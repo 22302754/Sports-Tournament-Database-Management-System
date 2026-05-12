@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – Tournament MS{% endblock %}
+{% block content %}
+<h3 class="mb-4">Dashboard</h3>
+
+<div class="row g-3">
+  <div class="col-md-3">
+    <div class="card card-stat p-3">
+      <div class="text-muted small">Tournaments</div>
+      <div class="display-6">{{ stats.tournaments }}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card card-stat p-3">
+      <div class="text-muted small">Teams</div>
+      <div class="display-6">{{ stats.teams }}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card card-stat p-3">
+      <div class="text-muted small">Players</div>
+      <div class="display-6">{{ stats.players }}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card card-stat p-3">
+      <div class="text-muted small">Upcoming Matches</div>
+      <div class="display-6">{{ stats.upcoming }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-4">
+  <div class="card-header"><strong>Next Scheduled Matches</strong></div>
+  <div class="card-body p-0">
+    <table class="table mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Date</th><th>Tournament</th><th>Home</th><th>Away</th><th>Venue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in upcoming_matches %}
+          <tr>
+            <td>{{ m.scheduled_at }}</td>
+            <td>{{ m.tournament }}</td>
+            <td>{{ m.home_team }}</td>
+            <td>{{ m.away_team }}</td>
+            <td>{{ m.venue or '-' }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="5" class="text-muted text-center py-3">No upcoming matches.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

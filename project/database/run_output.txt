@@ -1,0 +1,53 @@
+info                              
+----------------------------------
+==== Q1 : Top 10 goal scorers ====
+player        team        goals
+------------  ----------  -----
+Leo Martinez  Red Eagles  1    
+info                                    
+----------------------------------------
+==== Q2 : Standings of tournament 1 ====
+team          W  D  L  Pts
+------------  -  -  -  ---
+Red Eagles    1  0  0  3  
+Blue Tigers   0  1  1  1  
+Green Sharks  0  1  0  1  
+info                            
+--------------------------------
+==== Q3 : Venue utilization ====
+venue                city      total_matches  completed  scheduled
+-------------------  --------  -------------  ---------  ---------
+Olympic Stadium      Istanbul  2              1          1        
+Seaside Arena        Izmir     1              1          0        
+Bosphorus Court      Istanbul  0              0          0        
+Central Sports Hall  Ankara    0              0          0        
+info                                            
+------------------------------------------------
+==== Q4 : Teams registered but never played ====
+team_id  name        sport     
+-------  ----------  ----------
+4        City Hoops  Basketball
+info                                         
+---------------------------------------------
+==== Q5 : Players above avg goals/player ====
+info                                               
+---------------------------------------------------
+==== Q6 : Monthly match stats (last 12 months) ====
+month    matches  completed  cancelled  total_goals
+-------  -------  ---------  ---------  -----------
+2026-04  2        2          0          8          
+2026-05  1        0          0          0          
+info                                      
+------------------------------------------
+==== Q7 : Referees above avg workload ====
+referee       matches_officiated
+------------  ------------------
+Ruth Fischer  2                 
+info                                         
+---------------------------------------------
+==== match_audit (auto-trigger contents) ====
+audit_id  match_id  action  old_status  new_status  old_home_score  new_home_score  old_away_score  new_away_score  changed_at         
+--------  --------  ------  ----------  ----------  --------------  --------------  --------------  --------------  -------------------
+1         1         INSERT              Completed                   3                               1               2026-04-26 14:30:02
+2         2         INSERT              Completed                   2                               2               2026-04-26 14:30:02
+3         3         INSERT              Scheduled                                                                   2026-04-26 14:30:02

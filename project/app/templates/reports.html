@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}Reports – Tournament MS{% endblock %}
+{% block content %}
+<h3 class="mb-3">📈 Analytical Reports</h3>
+<p class="text-muted">The seven SQL queries required by the project brief, run live against the database.</p>
+
+<div class="card mb-4">
+  <div class="card-header"><strong>Q1 — Top 10 scoring teams</strong></div>
+  <table class="table mb-0"><thead class="table-light">
+    <tr><th>Team</th><th>Sport</th><th>Goals</th></tr>
+  </thead><tbody>
+    {% for r in data.top_scorers %}
+      <tr><td>{{ r.team }}</td><td>{{ r.sport }}</td><td>{{ r.goals }}</td></tr>
+    {% else %}
+      <tr><td colspan="3" class="text-muted text-center py-2">No completed matches yet.</td></tr>
+    {% endfor %}
+  </tbody></table>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <strong>Q2 — Tournament standings (W / D / L / Pts)</strong>
+    <form method="get" class="d-flex gap-2">
+      <select name="tournament_id" class="form-select form-select-sm"
+              onchange="this.form.submit()">
+        {% for t in tournaments %}
+          <option value="{{ t.tournament_id }}"
+            {% if selected_tid == t.tournament_id %}selected{% endif %}>{{ t.name }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+  <table class="table mb-0"><thead class="table-light">
+    <tr><th>Team</th><th>W</th><th>D</th><th>L</th><th>Points</th></tr>
+  </thead><tbody>
+    {% for r in data.standings %}
+      <tr>
+        <td>{{ r.team }}</td><td>{{ r.wins }}</td>
+        <td>{{ r.draws }}</td><td>{{ r.losses }}</td>
+        <td><strong>{{ r.points }}</strong></td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5" class="text-muted text-center py-2">No completed matches.</td></tr>
+    {% endfor %}
+  </tbody></table>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header"><strong>Q3 — Venue utilization</strong></div>
+  <table class="table mb-0"><thead class="table-light">
+    <tr><th>Venue</th><th>City</th><th>Total</th><th>Completed</th><th>Scheduled</th></tr>
+  </thead><tbody>
+    {% for r in data.venue_usage %}
+      <tr>
+        <td>{{ r.venue }}</td><td>{{ r.city }}</td>
+        <td>{{ r.total_matches }}</td>
+        <td>{{ r.completed }}</td><td>{{ r.scheduled }}</td>
+      </tr>
+    {% endfor %}
+  </tbody></table>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header"><strong>Q4 — Teams that have never played a match</strong></div>
+  <table class="table mb-0"><thead class="table-light">
+    <tr><th>Team</th><th>Sport</th></tr>
+  </thead><tbody>
+    {% for r in data.teams_no_match %}
+      <tr><td>{{ r.name }}</td><td>{{ r.sport }}</td></tr>
+    {% else %}
+      <tr><td colspan="2" class="text-muted text-center py-2">Every team has played at least once.</td></tr>
+    {% endfor %}
+  </tbody></table>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header"><strong>Q5 — Teams scoring above the average</strong></div>
+  <table class="table mb-0"><thead class="table-light">
+    <tr><th>Team</th><th>Goals</th></tr>
+  </thead><tbody>
+    {% for r in data.above_avg %}
+      <tr><td>{{ r.team }}</td><td>{{ r.goals }}</td></tr>
+    {% else %}
+      <tr><td colspan="2" class="text-muted text-center py-2">Not enough data.</td></tr>
+    {% endfor %}
+  </tbody></table>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header"><strong>Q6 — Monthly match statistics</strong></div>
+  <table class="table mb-0"><thead class="table-light">
+    <tr><th>Month</th><th>Matches</th><th>Completed</th><th>Cancelled</th><th>Total Goals</th></tr>
+  </thead><tbody>
+    {% for r in data.monthly %}
+      <tr>
+        <td>{{ r.month }}</td><td>{{ r.matches }}</td>
+        <td>{{ r.completed }}</td><td>{{ r.cancelled }}</td>
+        <td>{{ r.total_goals }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5" class="text-muted text-center py-2">No data in the last 12 months.</td></tr>
+    {% endfor %}
+  </tbody></table>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header"><strong>Q7 — Referees with above-average workload</strong></div>
+  <table class="table mb-0"><thead class="table-light">
+    <tr><th>Referee</th><th>Matches Officiated</th></tr>
+  </thead><tbody>
+    {% for r in data.ref_workload %}
+      <tr><td>{{ r.referee }}</td><td>{{ r.matches_officiated }}</td></tr>
+    {% else %}
+      <tr><td colspan="2" class="text-muted text-center py-2">No referee workload data.</td></tr>
+    {% endfor %}
+  </tbody></table>
+</div>
+{% endblock %}
