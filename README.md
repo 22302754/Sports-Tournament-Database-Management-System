@@ -16,7 +16,7 @@ is ready to deploy to **Supabase / Render / Railway** with PostgreSQL.
 | 22205300   | Gasem Qahtan             |
 | 22208946   | Maher Ba Akabah          |
 | 22203107   | MHD Yaman Almallasalem   |
-
+| 22204143   | Emad Ghilan              |
 ---
 
 ## 2. Domain & assumptions
