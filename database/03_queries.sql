@@ -46,7 +46,7 @@ WITH results AS (
          CASE WHEN away_score = home_score THEN 1 ELSE 0 END AS draws,
          CASE WHEN away_score < home_score THEN 1 ELSE 0 END AS losses
     FROM matches
-   WHERE status = 'Completed' AND tournament_id = :tid
+   WHERE status = 'Completed' AND tournament_id = 1
 )
 SELECT t.name AS team,
        SUM(r.wins)   AS wins,
