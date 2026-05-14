@@ -2,7 +2,7 @@
 
 A full-stack database course project featuring a **relational schema (9 tables)**, a
 **Flask web GUI (7 screens)**, **7 analytical SQL queries**, and **6 PL/pgSQL blocks**
-(2 functions, 1 procedure, 2 triggers). Works locally with zero setup (SQLite) and
+(3 functions, 1 procedure, 2 triggers). Works locally with zero setup (SQLite) and
 is ready to deploy to **Supabase / Render / Railway** with PostgreSQL.
 
 ---
@@ -144,11 +144,11 @@ completed match reports
 
 See `database/04_plpgsql.sql`:
 1. `fn_calculate_team_points(p_tournament_id, p_team_id)` – FUNCTION
-2. `fn_tournament_top_scorer(p_tournament_id)` – FUNCTION (returns player + goals)
-3. `sp_schedule_match(...)` – PROCEDURE (validates distinct teams + venue conflict)
-4. `player_age(p_player_id)` – FUNCTION that calculates and returns the current age of a player based on date of birth.
-5. `trg_update_match_status` – TRIGGER auto-setting status to *Completed*
+2. `sp_schedule_match(...)` – PROCEDURE (validates distinct teams + venue conflict)
+3. `trg_match_autostatus` - TRIGGER that automatically changes the match status to Completed when both scores are entered.
+4. `team_goals_for(p_team_id, p_tournament_id)` – FUNCTION that calculates and returns the total goals scored by a team in completed tournament matches.
+5. `player_age(p_player_id)` – FUNCTION that calculates and returns the current age of a player based on date of birth.
    when both scores are filled in
-6. `trg_match_autostatus` - TRIGGER that automatically changes the match status to Completed when both scores are entered.   
+6. `update_match_score(p_match_id, p_home_score, p_away_score)` – PROCEDURE that updates the scores of a match after validating the match status and score values.
 
 ---
