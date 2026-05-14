@@ -1,7 +1,7 @@
 # 🏆 Sports Tournament Management System
 
 A full-stack database course project featuring a **relational schema (9 tables)**, a
-**Flask web GUI (7 screens)**, **6 analytical SQL queries**, and **5 PL/pgSQL blocks**
+**Flask web GUI (7 screens)**, **7 analytical SQL queries**, and **6 PL/pgSQL blocks**
 (2 functions, 1 procedure, 2 triggers). Works locally with zero setup (SQLite) and
 is ready to deploy to **Supabase / Render / Railway** with PostgreSQL.
 
@@ -101,19 +101,6 @@ The first request auto-creates the schema, triggers and seed data in
 
 ## 6. Deploying to Supabase (PostgreSQL)
 
-1. Create a free project at <https://supabase.com>.
-2. In the SQL Editor, run (in order):
-   1. `database/01_ddl.sql`
-   2. `database/02_dml_seed.sql` *(optional – sample data)*
-   3. `database/04_plpgsql.sql`
-3. Under **Project Settings → Database**, copy the *Connection string* (URI).
-4. Set the `DATABASE_URL` environment variable to that URI, e.g.:
-   ```
-   DATABASE_URL=postgresql://postgres:YOUR-PASS@db.xxxx.supabase.co:5432/postgres
-   ```
-5. Run `python run.py` – the app will now talk to Supabase.
-
----
 
 ## 7. Screens (7)
 
@@ -135,7 +122,7 @@ See `database/03_queries.sql`. Demonstrated clauses: `JOIN`, `LEFT JOIN`,
 aggregate functions (`COUNT`, `SUM`, `AVG`), conditional aggregation, date
 arithmetic.
 
-The project includes 6 SQL queries used for reporting and statistical analysis.
+The project includes 7 SQL queries used for reporting and statistical analysis.
 These queries demonstrate the use of:
 
 JOIN operations
@@ -153,7 +140,7 @@ player statistics
 venue usage
 completed match reports
 
-## 9. PL/pgSQL blocks (5)
+## 9. PL/pgSQL blocks (6)
 
 See `database/04_plpgsql.sql`:
 1. `fn_calculate_team_points(p_tournament_id, p_team_id)` – FUNCTION
