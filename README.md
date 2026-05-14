@@ -1,7 +1,7 @@
 # 🏆 Sports Tournament Management System
 
 A full-stack database course project featuring a **relational schema (9 tables)**, a
-**Flask web GUI (7 screens)**, **7 analytical SQL queries**, and **5 PL/pgSQL blocks**
+**Flask web GUI (7 screens)**, **6 analytical SQL queries**, and **5 PL/pgSQL blocks**
 (2 functions, 1 procedure, 2 triggers). Works locally with zero setup (SQLite) and
 is ready to deploy to **Supabase / Render / Railway** with PostgreSQL.
 
@@ -135,10 +135,23 @@ See `database/03_queries.sql`. Demonstrated clauses: `JOIN`, `LEFT JOIN`,
 aggregate functions (`COUNT`, `SUM`, `AVG`), conditional aggregation, date
 arithmetic.
 
-Queries delivered: (1) top 10 goal scorers; (2) tournament standings W/D/L/Pts;
-(3) venue utilization; (4) teams that have never played; (5) players scoring
-above the overall average; (6) monthly match statistics; (7) referees with
-above-average workload.
+The project includes 6 SQL queries used for reporting and statistical analysis.
+These queries demonstrate the use of:
+
+JOIN operations
+GROUP BY and aggregate functions
+filtering and sorting
+subqueries
+tournament statistics and match analysis
+
+The queries provide information such as:
+
+tournament standings
+team performance
+match schedules
+player statistics
+venue usage
+completed match reports
 
 ## 9. PL/pgSQL blocks (5)
 
@@ -146,8 +159,9 @@ See `database/04_plpgsql.sql`:
 1. `fn_calculate_team_points(p_tournament_id, p_team_id)` – FUNCTION
 2. `fn_tournament_top_scorer(p_tournament_id)` – FUNCTION (returns player + goals)
 3. `sp_schedule_match(...)` – PROCEDURE (validates distinct teams + venue conflict)
-4. `trg_audit_match_changes` – TRIGGER on `matches` for INSERT / UPDATE / DELETE
+4. `player_age(p_player_id)` – FUNCTION that calculates and returns the current age of a player based on date of birth.
 5. `trg_update_match_status` – TRIGGER auto-setting status to *Completed*
    when both scores are filled in
+6. `trg_match_autostatus` - TRIGGER that automatically changes the match status to Completed when both scores are entered.   
 
 ---
