@@ -1,6 +1,6 @@
 # 🏆 Sports Tournament Management System
 
-A full-stack database course project featuring a **relational schema (11 tables)**, a
+A full-stack database course project featuring a **relational schema (9 tables)**, a
 **Flask web GUI (7 screens)**, **7 analytical SQL queries**, and **5 PL/pgSQL blocks**
 (2 functions, 1 procedure, 2 triggers). Works locally with zero setup (SQLite) and
 is ready to deploy to **Supabase / Render / Railway** with PostgreSQL.
