@@ -63,7 +63,7 @@ records every insert / update / delete on `matches`.
 | DDL (PostgreSQL)                    | `database/01_ddl.sql`            |
 | DML seed + example INSERT/UPDATE/DELETE | `database/02_dml_seed.sql`   |
 | 7 analytical SQL queries            | `database/03_queries.sql`        |
-| 5 PL/pgSQL blocks (fn, fn, proc, trg, trg) | `database/04_plpgsql.sql` |
+| 6 PL/pgSQL blocks (fn, fn, proc, trg, trg) | `database/04_plpgsql.sql` |
 | Local SQLite schema (mirrors above) | `database/schema_sqlite.sql`     |
 | Web GUI (Flask)                     | `app/` + `app/templates/`        |
 | DB connection code                  | `app/db.py`                      |
