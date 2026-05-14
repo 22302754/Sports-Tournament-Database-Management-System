@@ -36,7 +36,7 @@ WITH results AS (
          CASE WHEN home_score = away_score THEN 1 ELSE 0 END AS draws,
          CASE WHEN home_score < away_score THEN 1 ELSE 0 END AS losses
     FROM matches
-   WHERE status = 'Completed' AND tournament_id = :tid
+   WHERE status = 'Completed' AND tournament_id = 1
   UNION ALL
   SELECT away_team_id AS team_id,
          CASE WHEN away_score > home_score THEN 3
